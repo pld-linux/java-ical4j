@@ -7,16 +7,17 @@
 #
 %include	/usr/lib/rpm/macros.java
 #
-%define _rc	rc1
+%define 	srcname	ical4j
+%define 	_rc	rc1
 
 Summary:	Java API that provides support for the iCalendar
 Summary(pl.UTF-8):	Java API dodające wsparcie dla iCalendar
-Name:		ical4j
+Name:		java-%{srcname}
 Version:	1.0
 Release:	0.%{_rc}.1
 License:	Unknown
 Group:		Libraries/Java
-Source0:	http://dl.sourceforge.net/ical4j/%{name}-%{version}-%{_rc}-src.tar.bz2
+Source0:	http://dl.sourceforge.net/ical4j/%{srcname}-%{version}-%{_rc}-src.tar.bz2
 # Source0-md5:	1d07fbdf05cfad34354603b25d2ef8ea
 URL:		http://ical4j.sourceforge.net/
 BuildRequires:	java-commons-codec
@@ -54,7 +55,7 @@ Dokumentacja do ical4j.
 Javadoc pour ical4j.
 
 %prep
-%setup -qc
+%setup -q -n %{srcname}-%{version}-%{_rc}
 
 %build
 CLASSPATH=$(build-classpath commons-codec commons-lang commons-logging commons-io junit)
@@ -68,35 +69,35 @@ install -d build
 #	$(find net/fortuna/ical4j -name '*.java')
 #%endif
 
-%jar -cf %{name}-%{version}.jar -C build .
+%jar -cf %{srcname}-%{version}.jar -C build .
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
-cp -a %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}-%{version}.jar
-ln -s %{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
+cp -a %{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-%{version}.jar
+ln -s %{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}.jar
 
 # javadoc
 #%if %{with javadoc}
-#install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-#cp -a apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
-#ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
+#install -d $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
+#cp -a apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
+#ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
 #%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post javadoc
-ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
+ln -nfs %{srcname}-%{version} %{_javadocdir}/%{srcname}
 
 %files
 %defattr(644,root,root,755)
-%{_javadir}/%{name}-%{version}.jar
-%{_javadir}/%{name}.jar
+%{_javadir}/%{srcname}-%{version}.jar
+%{_javadir}/%{srcname}.jar
 
 #%if %{with javadoc}
 #%files javadoc
 #%defattr(644,root,root,755)
-#%{_javadocdir}/%{name}-%{version}
-#%ghost %{_javadocdir}/%{name}
+#%{_javadocdir}/%{srcname}-%{version}
+#%ghost %{_javadocdir}/%{srcname}
 #%endif
