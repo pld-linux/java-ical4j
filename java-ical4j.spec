@@ -15,7 +15,7 @@ Summary(pl.UTF-8):	Java API dodające wsparcie dla iCalendar
 Name:		java-%{srcname}
 Version:	1.0
 Release:	0.%{_rc}.1
-License:	Unknown
+License:	BSD-like
 Group:		Libraries/Java
 Source0:	http://dl.sourceforge.net/ical4j/%{srcname}-%{version}-%{_rc}-src.tar.bz2
 # Source0-md5:	1d07fbdf05cfad34354603b25d2ef8ea
