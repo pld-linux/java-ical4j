@@ -27,7 +27,6 @@ BuildRequires:	java-commons-logging
 %{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
 %{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	jpackage-utils
-BuildRequires:	junit
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
@@ -58,16 +57,16 @@ Javadoc pour ical4j.
 %setup -q -n %{srcname}-%{version}-%{_rc}
 
 %build
-CLASSPATH=$(build-classpath commons-codec commons-lang commons-logging commons-io junit)
+CLASSPATH=$(build-classpath commons-codec commons-lang commons-logging commons-io)
 
 install -d build
-%javac -classpath $CLASSPATH -source 1.4 -target 1.4 -d build $(find -name '*.java')
+%javac -classpath $CLASSPATH -source 1.4 -target 1.4 -d build $(find source -name '*.java')
 
-#%if %{with javadoc}
-#%javadoc -d apidocs \
-#	%{?with_java_sun:net.fortuna.ical4j} \
-#	$(find net/fortuna/ical4j -name '*.java')
-#%endif
+%if %{with javadoc}
+%javadoc -d apidocs \
+	%{?with_java_sun:net.fortuna.ical4j} \
+	$(find source/net/fortuna/ical4j -name '*.java')
+%endif
 
 %jar -cf %{srcname}-%{version}.jar -C build .
 
@@ -78,11 +77,11 @@ cp -a %{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}-%{version}
 ln -s %{srcname}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{srcname}.jar
 
 # javadoc
-#%if %{with javadoc}
-#install -d $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
-#cp -a apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
-#ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
-#%endif
+%if %{with javadoc}
+install -d $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
+cp -a apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{srcname}-%{version}
+ln -s %{srcname}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{srcname} # ghost symlink
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -95,9 +94,9 @@ ln -nfs %{srcname}-%{version} %{_javadocdir}/%{srcname}
 %{_javadir}/%{srcname}-%{version}.jar
 %{_javadir}/%{srcname}.jar
 
-#%if %{with javadoc}
-#%files javadoc
-#%defattr(644,root,root,755)
-#%{_javadocdir}/%{srcname}-%{version}
-#%ghost %{_javadocdir}/%{srcname}
-#%endif
+%if %{with javadoc}
+%files javadoc
+%defattr(644,root,root,755)
+%{_javadocdir}/%{srcname}-%{version}
+%ghost %{_javadocdir}/%{srcname}
+%endif
