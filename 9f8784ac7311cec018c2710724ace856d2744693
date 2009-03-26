@@ -1,0 +1,3 @@
+- don't build tests (it is very difficult to run tests without maven)
+- dropped BR: junit
+- enabled javadoc
