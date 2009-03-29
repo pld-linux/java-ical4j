@@ -1,8 +1,6 @@
 %bcond_without  javadoc         # don't build javadoc
 %if "%{pld_release}" == "ti"
-%bcond_without	java_sun	# build with gcj
-%else
-%bcond_with	java_sun	# build with java-sun
+%define	with_java_sun	1
 %endif
 #
 %include	/usr/lib/rpm/macros.java
@@ -14,7 +12,7 @@ Summary:	Java API that provides support for the iCalendar
 Summary(pl.UTF-8):	Java API dodające wsparcie dla iCalendar
 Name:		java-%{srcname}
 Version:	1.0
-Release:	0.%{_rc}.1
+Release:	0.%{_rc}.2
 License:	BSD-like
 Group:		Libraries/Java
 Source0:	http://dl.sourceforge.net/ical4j/%{srcname}-%{version}-%{_rc}-src.tar.bz2
