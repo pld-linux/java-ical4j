@@ -1,23 +1,22 @@
 %bcond_without  javadoc         # don't build javadoc
 %bcond_with	java_sun	# build with java-sun
-#
+
 %if "%{pld_release}" == "ti"
 %define	with_java_sun	1
 %endif
-#
-%include	/usr/lib/rpm/macros.java
-#
-%define 	srcname	ical4j
-%define 	_rc	rc1
 
+%define 	srcname	ical4j
+%define 	subver	rc1
+%define 	rel		3
+%include	/usr/lib/rpm/macros.java
 Summary:	Java API that provides support for the iCalendar
 Summary(pl.UTF-8):	Java API dodające wsparcie dla iCalendar
 Name:		java-%{srcname}
 Version:	1.0
-Release:	0.%{_rc}.3
+Release:	0.%{subver}.%{rel}
 License:	BSD-like
-Group:		Development/Languages/Java
-Source0:	http://dl.sourceforge.net/ical4j/%{srcname}-%{version}-%{_rc}-src.tar.bz2
+Group:		Libraries/Java
+Source0:	http://dl.sourceforge.net/ical4j/%{srcname}-%{version}-%{subver}-src.tar.bz2
 # Source0-md5:	1d07fbdf05cfad34354603b25d2ef8ea
 URL:		http://ical4j.sourceforge.net/
 BuildRequires:	java-commons-codec
@@ -54,7 +53,7 @@ Dokumentacja do ical4j.
 Javadoc pour ical4j.
 
 %prep
-%setup -q -n %{srcname}-%{version}-%{_rc}
+%setup -q -n %{srcname}-%{version}-%{subver}
 
 %build
 CLASSPATH=$(build-classpath commons-codec commons-lang commons-logging commons-io)
