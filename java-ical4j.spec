@@ -1,9 +1,4 @@
 %bcond_without  javadoc         # don't build javadoc
-%bcond_with	java_sun	# build with java-sun
-
-%if "%{pld_release}" == "ti"
-%define	with_java_sun	1
-%endif
 
 %define 	srcname	ical4j
 %define 	subver	rc1
@@ -16,15 +11,14 @@ Version:	1.0
 Release:	0.%{subver}.%{rel}
 License:	BSD-like
 Group:		Libraries/Java
-Source0:	http://dl.sourceforge.net/ical4j/%{srcname}-%{version}-%{subver}-src.tar.bz2
+Source0:	http://downloads.sourceforge.net/ical4j/%{srcname}-%{version}-%{subver}-src.tar.bz2
 # Source0-md5:	1d07fbdf05cfad34354603b25d2ef8ea
 URL:		http://ical4j.sourceforge.net/
 BuildRequires:	java-commons-codec
 BuildRequires:	java-commons-io
 BuildRequires:	java-commons-lang
 BuildRequires:	java-commons-logging
-%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
-%{?with_java_sun:BuildRequires:	java-sun}
+BuildRequires:	jdk
 BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
