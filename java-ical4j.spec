@@ -3,7 +3,6 @@
 %define 	srcname	ical4j
 %define 	subver	rc1
 %define 	rel		3
-%include	/usr/lib/rpm/macros.java
 Summary:	Java API that provides support for the iCalendar
 Summary(pl.UTF-8):	Java API dodające wsparcie dla iCalendar
 Name:		java-%{srcname}
